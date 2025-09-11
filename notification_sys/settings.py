@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'notifications_app',
+    'channels',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
