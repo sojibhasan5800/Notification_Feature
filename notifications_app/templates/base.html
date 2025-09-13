@@ -161,9 +161,31 @@
         </div>
     </nav>
 
-
+    {{room_name|json_script:"room-name"}}
     <script>
-       
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+        const notificationSocket = new WebSocket(
+            wsScheme + "://" + window.location.host + "/ws/notification/" + roomName + "/"
+            );
+
+        notificationSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(data);
+
+            const dropdown = document.getElementById("notifications-dropdown");
+            dropdown.innerHTML = `<li class='dropdown-item'>${data.text}</li><hr class="dropdown-divider">` + dropdown.innerHTML;
+
+            const badge = document.getElementById("notification-badge");
+            badge.innerHTML = parseInt(badge.innerHTML) + 1;
+        };
+       notificationSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        notificationSocket.onopen = function(e) {
+        console.log("WebSocket connected!");
+        };
     </script>
 
     {% block body %} {% endblock %}

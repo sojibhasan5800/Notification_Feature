@@ -1,2 +1,7 @@
 # source venv/Scripts/activate
+# daphne -p 8001 notification_sys.asgi:application
+# celery -A notification_sys worker --pool=solo -l info
+# celery -A notification_sys beat -l info -S django --pidfile=
+
+
 venv

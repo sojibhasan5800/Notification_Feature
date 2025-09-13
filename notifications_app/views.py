@@ -4,7 +4,7 @@ import json
 # Create your views here.
 from django.template import RequestContext
 def home(request):
-    return render(request, 'index.html', )
+    return render(request, 'index.html',{'room_name': "broadcast"})
 
 # from asgiref.sync import async_to_sync
 # def test(request):
